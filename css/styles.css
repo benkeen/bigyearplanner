@@ -6,3 +6,6 @@ h2 {
 .add_species .difficulty > span {
     margin-right: 6px;
 }
+.reset_filters {
+    margin-left: 6px;
+}

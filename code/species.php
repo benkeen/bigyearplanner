@@ -6,13 +6,14 @@ function add_species($info)
     global $dbh;
 
     $statement = $dbh->prepare("
-        INSERT INTO species (species_name, sci_name, family_id, difficulty, lifer, notes)
-        VALUES (:species_name, :sci_name, :family_id, :difficulty, :lifer, :notes)
+        INSERT INTO species (species_name, sci_name, family_id, difficulty, is_breeding_bird, lifer, notes)
+        VALUES (:species_name, :sci_name, :family_id, :difficulty, :is_breeding_bird, :lifer, :notes)
     ");
     $statement->bindValue("species_name", $info["species_name"]);
     $statement->bindValue("sci_name", $info["sci_name"]);
     $statement->bindValue("family_id", $info["family_id"]);
     $statement->bindValue("difficulty", $info["difficulty"]);
+    $statement->bindValue("is_breeding_bird", $info["is_breeding_bird"]);
     $statement->bindValue("lifer", isset($info["lifer"]) ? "yes" : "no");
     $statement->bindValue("notes", $info["notes"]);
 
@@ -28,8 +29,16 @@ function get_species($filters)
 {
     global $dbh;
 
+    $where_clauses = array("1 = 1");
+    if (isset($filters["family_id"]) && !empty($filters["family_id"])) {
+        $where_clauses[] = "family_id = {$filters["family_id"]}"; // sigh
+    }
+
+    $clauses = implode(" AND ", $where_clauses);
+
     $statement = $dbh->prepare("
-        SELECT * from species 
+        SELECT * from species
+        WHERE $clauses
         ORDER BY species_name ASC
     ");
     $statement->execute();
@@ -37,6 +46,20 @@ function get_species($filters)
     return $statement->fetchAll(PDO::FETCH_ASSOC);
 }
 
+
+function get_single_species($species_id)
+{
+    global $dbh;
+
+    $statement = $dbh->prepare("
+        SELECT * from species
+        WHERE species_id = :species_id
+    ");
+    $statement->bindValue("species_id", $species_id);
+    $statement->execute();
+
+    return $statement->fetch(PDO::FETCH_ASSOC);
+}
 
 function show_difficulty_label($difficulty)
 {

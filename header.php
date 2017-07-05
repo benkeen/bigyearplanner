@@ -10,6 +10,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li <?php if ($page == "list") echo 'class="active"'; ?>><a href="./">List</a></li>
                 <li <?php if ($page == "add") echo 'class="active"'; ?>><a href="add.php">Add</a></li>
+                <li <?php if ($page == "trips") echo 'class="active"'; ?>><a href="trips.php">Trips</a></li>
                 <li <?php if ($page == "stats") echo 'class="active"'; ?>><a href="stats.php">Stats</a></li>
             </ul>
         </div>
