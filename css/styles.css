@@ -9,3 +9,9 @@ h2 {
 .reset_filters {
     margin-left: 6px;
 }
+
+#list-count {
+    float: right;
+    margin-top: 20px;
+    color: #777777;
+}

@@ -28,15 +28,6 @@ require_once("header.php");
                 </td>
             </tr>
             <tr>
-                <td colspan="2">
-                    <span class="label label-success">Easy <b><?=$stats["difficulty_count"]["easy"]?></b></span>
-                    <span class="label label-info">Expected <b><?=$stats["difficulty_count"]["expected"]?></b></span>
-                    <span class="label label-primary">Moderate <b><?=$stats["difficulty_count"]["moderate"]?></b></span>
-                    <span class="label label-warning">Difficult <b><?=$stats["difficulty_count"]["difficult"]?></b></span>
-                    <span class="label label-danger">Improbable <b><?=$stats["difficulty_count"]["improbable"]?></b></span>
-                </td>
-            </tr>
-            <tr>
                 <td>Number of breeding birds</td>
                 <td>
                     <h4><?=$stats["num_breeding_birds"]?></h4>
@@ -50,10 +41,17 @@ require_once("header.php");
             </tr>
             <tr>
                 <td>
-                    <label>Expected # of birds seen in the year</label>
+                    <h4>Expected</h4>
                 </td>
                 <td>
 
+                    <span class="label label-success">Easy <b><?=$stats["difficulty_count"]["easy"]?></b></span>
+                    <span class="label label-info">Expected <b><?=$stats["difficulty_count"]["expected"]?></b></span>
+                    <span class="label label-primary">Moderate <b><?=$stats["difficulty_count"]["moderate"]?></b></span>
+                    <span class="label label-warning">Difficult <b><?=$stats["difficulty_count"]["difficult"]?></b></span>
+                    <span class="label label-danger">Improbable <b><?=$stats["difficulty_count"]["improbable"]?></b></span>
+
+                    <h4><?=$stats["difficulty_count"]["easy"]+$stats["difficulty_count"]["expected"]?></h4>
                 </td>
             </tr>
         </table>

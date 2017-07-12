@@ -17,7 +17,6 @@ if (isset($_POST["upate_species"])) {
 <body>
 
 <?php
-print_r($info);
 $page = "edit_species";
 require_once("header.php");
 ?>
@@ -42,7 +41,8 @@ require_once("header.php");
                     <select name="family_id">
                     <?php
                     foreach ($families as $family) {
-                        echo "<option value=\"{$family["family_id"]}\">{$family["family_name"]}</option>";
+                        $selected = $info["family_id"] === $family["family_id"] ? "selected=\"selected\"" : "";
+                        echo "<option value=\"{$family["family_id"]}\" {$selected}>{$family["family_name"]}</option>";
                     }
                     ?>
                     </select>
@@ -52,23 +52,28 @@ require_once("header.php");
                 <td>Difficulty</td>
                 <td class="difficulty">
                     <span class="label label-success">
-                        <input type="radio" name="difficulty" id="d1" value="easy" />
+                        <input type="radio" name="difficulty" id="d1" value="easy"
+                            <?php if ($info["difficulty"] == "easy") { echo "selected=\"selected\""; } ?> />
                             <label for="d1">Easy</label>
                     </span>
                     <span class="label label-info">
-                        <input type="radio" name="difficulty" id="d2" value="expected" />
+                        <input type="radio" name="difficulty" id="d2" value="expected"
+                            <?php if ($info["difficulty"] === "expected") { echo "selected=\"selected\""; } ?> />
                             <label for="d2">Expected</label>
                     </span>
                     <span class="label label-primary">
-                        <input type="radio" name="difficulty" id="d3" value="moderate" />
+                        <input type="radio" name="difficulty" id="d3" value="moderate"
+                            <?php if ($info["difficulty"] === "moderate") { echo "selected=\"selected\""; } ?> />
                             <label for="d3">Moderate</label>
                     </span>
                     <span class="label label-warning">
-                        <input type="radio" name="difficulty" id="d4" value="difficult" />
+                        <input type="radio" name="difficulty" id="d4" value="difficult"
+                            <?php if ($info["difficulty"] === "difficult") { echo "selected=\"selected\""; } ?> />
                             <label for="d4">Difficult</label>
                     </span>
                     <span class="label label-danger">
-                        <input type="radio" name="difficulty" id="d5" value="improbable" />
+                        <input type="radio" name="difficulty" id="d5" value="improbable"
+                            <?php if ($info["difficulty"] === "improbable") { echo "selected=\"selected\""; } ?> />
                             <label for="d5">Improbable</label>
                     </span>
                 </td>
@@ -78,7 +83,8 @@ require_once("header.php");
                     Lifer?
                 </td>
                 <td>
-                    <input type="checkbox" name="lifer" id="lifer" />
+                    <input type="checkbox" name="lifer" id="lifer"
+                        <?php if ($info["lifer"] === "yes") { echo "checked=\"checked\""; } ?> />
                         <label for="lifer">Lifer.</label>
                 </td>
             </tr>
@@ -87,9 +93,11 @@ require_once("header.php");
                     Breeds in BC?
                 </td>
                 <td>
-                    <input type="radio" name="is_breeding_bird" value="yes" id="ibb1" checked />
+                    <input type="radio" name="is_breeding_bird" value="yes" id="ibb1"
+                        <?php if ($info["is_breeding_bird"] === "yes") { echo "checked=\"checked\""; } ?> />
                         <label for="ibb1">Yes</label>
-                    <input type="radio" name="is_breeding_bird" value="no" id="ibb2" />
+                    <input type="radio" name="is_breeding_bird" value="no" id="ibb2"
+                        <?php if ($info["is_breeding_bird"] === "no") { echo "checked=\"checked\""; } ?> />
                         <label for="ibb2">No</label>
                 </td>
             </tr>

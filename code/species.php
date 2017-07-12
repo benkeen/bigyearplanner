@@ -33,6 +33,12 @@ function get_species($filters)
     if (isset($filters["family_id"]) && !empty($filters["family_id"])) {
         $where_clauses[] = "family_id = {$filters["family_id"]}"; // sigh
     }
+    if (isset($filters["q"]) && !empty($filters["q"])) {
+        $where_clauses[] = "(species_name LIKE '%{$filters["q"]}%' OR sci_name LIKE '%{$filters["q"]}%')"; // sigh
+    }
+    if (isset($filters["difficulty"]) && !empty($filters["difficulty"])) {
+        $where_clauses[] = "difficulty = '{$filters["difficulty"]}'";
+    }
 
     $clauses = implode(" AND ", $where_clauses);
 
