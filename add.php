@@ -1,6 +1,7 @@
 <?php
 require_once("code.php");
 $families = get_families();
+$locations = get_locations();
 
 if (isset($_POST["add_species"])) {
     add_species($_POST);
@@ -21,7 +22,7 @@ require_once("header.php");
 ?>
 
 
-<div class="container add_species">
+<div class="page container add_species">
 
     <form action="./add.php" method="post">
         <h2>Add Species</h2>

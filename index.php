@@ -1,16 +1,22 @@
 <?php
 require_once("code.php");
+
 $families = get_families();
 $family_map = get_family_map();
+$locations = get_locations();
 
 $filters = array(
-    "family_id" => (isset($_GET["family_id"])) ? $_GET["family_id"] : "",
-    "q" => (isset($_GET["q"])) ? $_GET["q"] : "",
-    "difficulty" => (isset($_GET["difficulty"])) ? $_GET["difficulty"] : ""
+    "family_id" => (isset($_REQUEST["family_id"])) ? $_REQUEST["family_id"] : "",
+    "q" => (isset($_REQUEST["q"])) ? $_REQUEST["q"] : "",
+    "difficulty" => (isset($_REQUEST["difficulty"])) ? $_REQUEST["difficulty"] : "",
+    "lifer" => isset($_REQUEST["lifer"]) ? "yes" : "",
+    "location_id" => isset($_REQUEST["location_id"]) ? $_REQUEST["location_id"] : "",
 );
 $species = get_species($filters);
-$has_filters = !empty($filters["family_id"]) || !empty($filters["q"]) || !empty($filters["difficulty"]);
+$has_filters = !empty($filters["family_id"]) || !empty($filters["q"]) || !empty($filters["difficulty"]) || !empty($filters["lifer"]);
 $search_string = $filters["q"];
+
+$_SESSION["search"] = $filters;
 ?>
 <!DOCTYPE html>
 <html>
@@ -25,15 +31,17 @@ $page = "list";
 require_once("header.php");
 ?>
 
-<div class="container add_species">
+<div class="page container">
 
-    <span id="list-count">
-        <h5><?=count($species)?></h5>
-    </span>
+    <button class="btn btn-primary btn-sm" id="add_button" onclick="window.location = 'add.php'">Add &raquo;</button>
 
     <h2>Species</h2>
 
     <div>
+        <span id="list-count">
+            <?=count($species)?> results
+        </span>
+
         <form action="./" method="get">
             <input type="text" placeholder="Search string" name="q" <?=$search_string?> autofocus />
             <select name="family_id">
@@ -45,8 +53,8 @@ require_once("header.php");
                 }
                 ?>
             </select>
-            <select name="family_id">
-                <option value="">All</option>
+            <select name="difficulty">
+                <option value="">All difficulties</option>
                 <?php
                 $levels = array("easy", "expected", "moderate", "difficult", "improbable");
                 foreach ($levels as $level) {
@@ -56,8 +64,23 @@ require_once("header.php");
                 }
                 ?>
             </select>
+            <select name="locations">
+                <option value="">All locations</option>
+                <?php
+                foreach ($locations as $location) {
+                    $selected = $_GET["location_id"] == $location["location_id"] ? "selected=\"selected\"" : "";
+                    echo "<option value=\"{$location["location_id"]}\" $selected>{$location["location_name"]}</option>";
+                }
+                ?>
+            </select>
+            <input type="checkbox" name="lifer" id="lifer" value="yes"
+                <?php if ($_GET["lifer"] == "yes") { echo "checked"; } ?> />
+                <label for="lifer">Lifer</label>
 
-            <input type="submit" class="btn btn-info btn-sm" value="Filter" />
+            <span>|</span>
+
+            <input type="submit" class="btn btn-info btn-sm" value="Search" />
+
             <?php if ($has_filters) { ?>
             <a href="./" class="reset_filters">clear</a>
             <?php } ?>
@@ -73,6 +96,7 @@ require_once("header.php");
                 <th>Family</th>
                 <th>Difficulty</th>
                 <th>Lifer?</th>
+                <th>Locations</th>
                 <th></th>
             </tr>
         </thead>
@@ -84,6 +108,9 @@ require_once("header.php");
                 <td><a href="?family_id=<?=$row["family_id"]?>"><?=$family_map[$row["family_id"]]?></a></td>
                 <td><a href="?difficulty=<?=$row["difficulty"]?>"<?=show_difficulty_label($row["difficulty"])?></a></td>
                 <td><?=$row["lifer"]?></td>
+                <td>
+                    <?=show_locations_list($row["location_ids"], $locations);?>
+                </td>
                 <td><a href="edit.php?species_id=<?=$row["species_id"]?>">Edit</a></td>
             </tr>
         <?php } ?>

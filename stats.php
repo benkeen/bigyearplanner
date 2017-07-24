@@ -15,7 +15,7 @@ $page = "stats";
 require_once("header.php");
 ?>
 
-<div class="container add_species">
+<div class="page container">
 
     <form action="./" method="post">
         <h2>Stats</h2>
@@ -45,13 +45,13 @@ require_once("header.php");
                 </td>
                 <td>
 
-                    <span class="label label-success">Easy <b><?=$stats["difficulty_count"]["easy"]?></b></span>
-                    <span class="label label-info">Expected <b><?=$stats["difficulty_count"]["expected"]?></b></span>
-                    <span class="label label-primary">Moderate <b><?=$stats["difficulty_count"]["moderate"]?></b></span>
-                    <span class="label label-warning">Difficult <b><?=$stats["difficulty_count"]["difficult"]?></b></span>
-                    <span class="label label-danger">Improbable <b><?=$stats["difficulty_count"]["improbable"]?></b></span>
+                    <a href="./?difficulty=easy"><span class="label label-success">Easy <b><?=$stats["difficulty_count"]["easy"]?></b></span></a>
+                    <a href="./?difficulty=expected"><span class="label label-info">Expected <b><?=$stats["difficulty_count"]["expected"]?></b></span></a>
+                    <a href="./?difficulty=moderate"><span class="label label-primary">Moderate <b><?=$stats["difficulty_count"]["moderate"]?></b></span></a>
+                    <a href="./?difficulty=difficult"><span class="label label-warning">Difficult <b><?=$stats["difficulty_count"]["difficult"]?></b></span></a>
+                    <a href="./?difficulty=improbable"><span class="label label-danger">Improbable <b><?=$stats["difficulty_count"]["improbable"]?></b></span></a>
 
-                    <h4><?=$stats["difficulty_count"]["easy"]+$stats["difficulty_count"]["expected"]?></h4>
+                    <h4><?=$stats["difficulty_count"]["easy"]+$stats["difficulty_count"]["expected"]+$stats["difficulty_count"]["moderate"]?></h4>
                 </td>
             </tr>
         </table>

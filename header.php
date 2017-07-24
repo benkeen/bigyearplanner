@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand" href="#">Big Year Planner</a>
@@ -8,10 +8,9 @@
             <ul class="nav navbar-nav">
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li <?php if ($page == "list") echo 'class="active"'; ?>><a href="./">List</a></li>
-                <li <?php if ($page == "add") echo 'class="active"'; ?>><a href="add.php">Add</a></li>
-                <li <?php if ($page == "trips") echo 'class="active"'; ?>><a href="trips.php">Trips</a></li>
-                <li <?php if ($page == "stats") echo 'class="active"'; ?>><a href="stats.php">Stats</a></li>
+                <li <?php if ($page == "list") echo 'class="active"'; ?>><a href="<?=$ROOT_URL?>/">Species</a></li>
+                <li <?php if ($page == "locations") echo 'class="active"'; ?>><a href="<?=$ROOT_URL?>/locations/">Locations</a></li>
+                <li <?php if ($page == "stats") echo 'class="active"'; ?>><a href="<?=$ROOT_URL?>/stats.php">Stats</a></li>
             </ul>
         </div>
     </div>

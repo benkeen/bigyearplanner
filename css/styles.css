@@ -1,17 +1,42 @@
 h2 {
     margin-bottom: 25px;
 }
-
-/* add species page */
-.add_species .difficulty > span {
+.page {
+    margin-top: 70px;
+}
+.difficulty > span {
     margin-right: 6px;
 }
 .reset_filters {
     margin-left: 6px;
 }
-
 #list-count {
     float: right;
     margin-top: 20px;
     color: #777777;
+}
+#add_button {
+    float: right;
+    margin-top: 20px;
+}
+input[type=text] {
+    width: 300px;
+}
+.medium-grey {
+    color: #999999;
+}
+.location-list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+#species_nav {
+    float: right;
+}
+#species_nav span {
+    color: #cccccc;
+}
+#species_nav .delim {
+    color: #cccccc;
+    margin: 0 10px;
 }
